@@ -5,13 +5,9 @@ module Pathfinder
     x_difference = (friendly_location.fetch(:x) - current.fetch(:x)).abs
     length = Math.sqrt(y_difference**2 + x_difference**2)
     return friendly_location if speed > 0 && length < speed
-    y_difference /= length
-    x_difference /= length
-    x_difference *= speed
-    y_difference *= speed
     target = {
-      x: ( current[:x] + x_difference ),
-      y: ( current[:y] + y_difference )
+      x: current[:x] + x_difference / length * speed ,
+      y: current[:y] + y_difference / length * speed
       }
   end
 
@@ -20,5 +16,3 @@ module Pathfinder
   end
 
 end
-
-#
