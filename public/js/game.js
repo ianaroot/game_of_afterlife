@@ -4,22 +4,40 @@ var height = canvas.height
 var ctx = canvas.getContext('2d');
 
 function updatePosition(){
-  var newX = this.x + this.Offset
+  var newX = this.x + this.xOffset;
   if (newX < 0) {
-    this.x = width + this.Offset
+    this.x = width + newX;
   } else if (newX > width) {
-    console.log("do this later")
+    this.x = newX - width;
+  } else {
+    this.x = newX;
+  }
+  var newY = this.y + this.yOffset;
+  if (newY < 0) {
+    this.y = height + newY;
+  } else if (newY > height) {
+    this.y = newY - height;
+  } else {
+    this.y = newY;
   }
 }
 
-function Zombie(x,y){
-  this.x = x
-  this.y = y
-  this.color = '#ff0000'
-  this.Xoffset = -5
+function Humanoid(x,y){
+  this.x = x;
+  this.y = y;
 }
 
-Zombie.prototype.updatePosition = updatePosition.bind(Zombie.prototype)
+Humanoid.prototype.updatePosition = updatePosition.bind(Humanoid.prototype)
+
+function Zombie(x,y){
+  this.x = x;
+  this.y = y;
+  this.color = '#ff0000'
+  this.xOffset = 20
+  this.yOffset = 20
+}
+
+Zombie.prototype.updatePosition = updatePosition
 
 function Human(x,y){
   this.x = x
@@ -55,6 +73,6 @@ function update(){
 }
 
 drawNew()
-for (var i = 0; i<20; i++){
-  setTimeout(update, 100*i)
+for (var i = 0; i<50; i++){
+  setTimeout(update, 50*i)
 }
