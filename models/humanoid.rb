@@ -1,3 +1,5 @@
+require_relative 'humanoidFactory'
+
 class Humanoid
   attr_accessor :type, :speed, :position
 
@@ -23,13 +25,15 @@ class Humanoid
   end
 end
 
-human = Humanoid.new({type: :human})
-human2 = Humanoid.new({type: :human})
+# human = Humanoid.new({type: :human})
+# human2 = Humanoid.new({type: :human})
 
-zombie = Humanoid.new({type: :zombie})
-zombie2 = Humanoid.new({type: :zombie})
+# zombie = Humanoid.new({type: :zombie})
+# zombie2 = Humanoid.new({type: :zombie})
 
-# class for testing; replace with PF module
+p pop = HumanoidBuilder.populate(3,5)
+
+# class Pathfinder #for testing; replace with PF module
 #   def self.move_away(position, target_position, speed)
 #     "youre moving away from dat object bro"
 #   end
