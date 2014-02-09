@@ -1,3 +1,10 @@
 body {
-  background-color: blue;
+  background-color: #333;
+}
+.header, .content{
+  text-align: center;
+}
+canvas{
+  background-color: #444;
+  outline: 2px black solid;
 }

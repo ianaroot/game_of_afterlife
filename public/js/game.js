@@ -30,11 +30,16 @@ function makeAjaxRequest(url) {
 
         makeAjaxRequest(url) 
     
-      }, 200);
+      }, 150);
     
       humanoids = JSON.parse(xmlhttp.response);
     
       ctx.clearRect(0,0,width,height)
+
+      if (humanoids.length === 0){
+        clearTimeout(nextRequest);
+        alert('EVERYBODY IS DEAD!!!')
+      }
     
       for (var i = 0; i < humanoids.length; i++){
 
@@ -45,7 +50,7 @@ function makeAjaxRequest(url) {
         } else if (humanoid.type === 'zombie') {
           humanoid.color = '#ff0000'
         } else {
-          humanoid.color = '#ffff00'
+          humanoid.color = '#770000'
         }
 
         draw(humanoid)
