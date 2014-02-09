@@ -16,10 +16,11 @@ class Board
     end
   end
 
-  def nearest_humanoid(humanoid)
+  def nearest_humanoid(humanoid, type)
     x = humanoid.position[:x]
     y = humanoid.position[:y]
     other_humanoids = @humanoids - [ humanoid ]
+    other_humanoids.keep_if { |humanoid| humanoid.type == type }
     other_humanoids.min_by do |dude|
       (( x - dude.position[:x] ) ** 2 ) + (( y - dude.position[:y] ) ** 2 )
     end
@@ -31,11 +32,24 @@ class Board
         humanoid.increment_time_since_infection
         next
       end
-      nearest_humanoid = nearest_humanoid humanoid
-      destination = humanoid.move_nearest(nearest_humanoid)
+      nearest_zombie = nearest_humanoid(humanoid, :zombie)
+      nearest_human = nearest_humanoid(humanoid, :human)
+      if humanoid.type == :zombie
+        if humanoid.distance_to(nearest_zombie.position) < 20
+          destination = humanoid.move_nearest(nearest_zombie)
+        else
+          destination = humanoid.move_nearest(nearest_human)
+        end
+      elsif humanoid.type == :human
+        if humanoid.distance_to(nearest_zombie.position) < 50
+          destination = humanoid.move_nearest(nearest_zombie)
+        else
+          destination = humanoid.move_nearest(nearest_human)
+        end
+      end
       destination[:y] = destination[:y] % height
       destination[:x] = destination[:x] % width
-      humanoid.bite nearest_humanoid if humanoid.bites? and humanoid.distance_to(nearest_humanoid.position) < 10
+      humanoid.bite nearest_human if humanoid.bites? and humanoid.distance_to(nearest_human.position) < 10
       humanoid.position = destination if valid_destination?(destination)
     end
     humanoids.any? {|humanoid| humanoid.type == :human} ? humanoids : nil
