@@ -26,7 +26,7 @@ class Board
     end
   end
 
-  def next_turn(humanoids)
+  def next_turn
     humanoids.each do |humanoid|
       destination = humanoid.move_nearest(nearest_humanoid(humanoid))
       humanoid.position = destination if valid_destination?(destination)
