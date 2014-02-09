@@ -16,7 +16,6 @@ class Board
     end
   end
 
-
   def nearest_humanoid(humanoid)
     x = humanoid.position[:x]
     y = humanoid.position[:y]
@@ -28,13 +27,14 @@ class Board
 
   def next_turn
     humanoids.each do |humanoid|
-      nearest_humanoid = nearest_humanoid(humanoid)
-      destination = humanoid.move_nearest(nearest_humanoid)
-      if valid_destination?(destination)
-        humanoid.position = destination
-      elsif humanoid.type == :zombie
-        nearest_humanoid.get_bitten
+      if humanoid.type == :infected_human
+        humanoid.increment_time_since_infection
+        next
       end
+      nearest_humanoid = nearest_humanoid humanoid
+      destination = humanoid.move_nearest(nearest_humanoid)
+      humanoid.bite nearest_humanoid if humanoid.bites? and humanoid.distance_to(nearest_humanoid.position) < 10
+      humanoid.position = destination if valid_destination?(destination)
     end
     humanoids
   end

@@ -44,6 +44,8 @@ function makeAjaxRequest(url) {
           humanoid.color = '#00aaaa';
         } else if (humanoid.type === 'zombie') {
           humanoid.color = '#ff0000'
+        } else {
+          humanoid.color = '#ffff00'
         }
 
         draw(humanoid)
