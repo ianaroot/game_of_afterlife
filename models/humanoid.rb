@@ -12,24 +12,30 @@ class Humanoid
   end
 
   def move_nearest(nearest_object)
-    potential_move = attracted?(nearest_object) ?
+    potential_move =
+    attracted?(nearest_object) ?
     move_towards(position, nearest_object.position, speed) :
     move_away(position, nearest_object.position, speed)
-    if @last_position == @position
-      store_last_position
-      potential_move
-    elsif last_simmilar_to_potential?( potential_move )
-      store_last_position
-      change_direction(potential_move)
-    else
-      store_last_position
-      potential_move
-    end
+     if @last_position == @position
+       store_last_position
+       potential_move
+     elsif last_simmilar_to_potential?( potential_move )
+       store_last_position
+       change_direction(potential_move)
+       potential_move
+     else
+       store_last_position
+       potential_move
+     end
   end
 
   def last_simmilar_to_potential?( potential_move )
-    (potential_move[:x] - @last_position[:x]).abs < @speed / 3) &&
-    (potential_move[:y] - @last_position[:y]).abs < @speed / 3)
+    ((potential_move[:x] - @last_position[:x]).abs < 2) &&
+    ((potential_move[:y] - @last_position[:y]).abs < 2)
+  end
+
+  def store_last_position
+    @last_position = @position
   end
 
   def change_direction(potential_move)
@@ -48,12 +54,4 @@ class Humanoid
     end
   end
 
-  def store_last_position
-    @last_position = @position
-  end
 end
-
-
-test = Humanoid.new(position: {x: 0, y: 0}, speed: 2, type: :human)
-
-test.test
