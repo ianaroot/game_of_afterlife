@@ -35,10 +35,10 @@ class Board
       nearest_zombie = nearest_humanoid(humanoid, :zombie)
       nearest_human = nearest_humanoid(humanoid, :human)
       if humanoid.type == :zombie
-        if humanoid.distance_to(nearest_zombie.position) < 20
-          destination = humanoid.move_nearest(nearest_zombie)
-        else
+        if humanoid.distance_to(nearest_human.position) < humanoid.distance_to(nearest_zombie.position) * 6 
           destination = humanoid.move_nearest(nearest_human)
+        else
+          destination = humanoid.move_nearest(nearest_zombie)
         end
       elsif humanoid.type == :human
         if humanoid.distance_to(nearest_zombie.position) < 50

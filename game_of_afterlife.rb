@@ -5,7 +5,7 @@ require './app'
 
 
 get '/' do
-  @@board = Board.new(HumanoidBuilder.populate(30,20), 400, 600)
+  @@board = Board.new(HumanoidBuilder.populate(40,10), 400, 600)
   erb :main
 end
 
