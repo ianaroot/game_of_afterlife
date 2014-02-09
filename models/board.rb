@@ -23,7 +23,7 @@ class Board
     other_humanoids.min_by do |dude|
       (( x - dude.position[:x] ) ** 2 ) + (( y - dude.position[:y] ) ** 2 )
     end
-  end
+  end 
 
   def next_turn
     humanoids.each do |humanoid|
@@ -38,6 +38,6 @@ class Board
       humanoid.bite nearest_humanoid if humanoid.bites? and humanoid.distance_to(nearest_humanoid.position) < 10
       humanoid.position = destination if valid_destination?(destination)
     end
-    humanoids
+    humanoids.any? {|humanoid| humanoid.type == :human} ? humanoids : nil
   end
 end

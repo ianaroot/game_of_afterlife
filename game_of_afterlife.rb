@@ -5,13 +5,13 @@ require './app'
 
 
 get '/' do
-  @@board = Board.new(HumanoidBuilder.populate(20,5), 1000, 800)
+  @@board = Board.new(HumanoidBuilder.populate(20,5), 400, 600)
   erb :main
 end
 
 get '/update' do
   puts params
-  @@board.next_turn
-  .map{|humanoid| {type: humanoid.type, position: humanoid.position} }
-  .to_json
+  next_turn = @@board.next_turn
+  next_turn ? next_turn.map{|humanoid| {type: humanoid.type, position: humanoid.position} }
+  .to_json : [].to_json
 end

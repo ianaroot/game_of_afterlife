@@ -31,4 +31,12 @@ module Pathfinder
     x_difference = other_location.fetch(:x) - position.fetch(:x)
     Math.sqrt(y_difference**2 + x_difference**2)
   end
+
+  def move_randomly
+    angle = rand * 2*Math::PI
+    {
+      x: position.fetch(:x) + Math.cos(angle) * speed,
+      y: position.fetch(:y) + Math.sin(angle) * speed
+    }
+  end
 end
