@@ -18,7 +18,7 @@ class Humanoid
     move_away_from(nearest_object.position, speed)
      if @last_position == @position
        store_last_position
-       potential_move
+       move_randomly
      elsif last_simmilar_to_potential?( potential_move )
        store_last_position
        move_perpendicular_to nearest_object.position, speed
