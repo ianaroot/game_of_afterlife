@@ -12,8 +12,7 @@ class Humanoid
   end
 
   def move_nearest(nearest_object)
-    potential_move =
-    attracted?(nearest_object) ?
+    potential_move = attracted?(nearest_object) ?
     move_towards(position, nearest_object.position, speed) :
     move_away(position, nearest_object.position, speed)
      if @last_position == @position
@@ -22,7 +21,6 @@ class Humanoid
      elsif last_simmilar_to_potential?( potential_move )
        store_last_position
        change_direction(potential_move)
-       potential_move
      else
        store_last_position
        potential_move
