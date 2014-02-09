@@ -8,12 +8,35 @@ class Humanoid
     @position = attributes[:position] || {x: (5 + rand(791)), y: (5 + rand(791))}
     @speed = attributes[:speed]
     @type = attributes[:type]
+    @last_position = @position
   end
 
   def move_nearest(nearest_object)
-    attracted?(nearest_object) ?
-     move_towards(position, nearest_object.position, speed) :
-     move_away(position, nearest_object.position, speed)
+    potential_move = attracted?(nearest_object) ?
+    move_towards(position, nearest_object.position, speed) :
+    move_away(position, nearest_object.position, speed)
+    if @last_position == @position
+      store_last_position
+      potential_move
+    elsif last_simmilar_to_potential?( potential_move )
+      store_last_position
+      change_direction(potential_move)
+    else
+      store_last_position
+      potential_move
+    end
+  end
+
+  def last_simmilar_to_potential?( potential_move )
+    (potential_move[:x] - @last_position[:x]).abs < @speed / 3) &&
+    (potential_move[:y] - @last_position[:y]).abs < @speed / 3)
+  end
+
+  def change_direction(potential_move)
+    temp = potential_move[:y]
+    potential_move[:y] = potential_move[:x]
+    potential_move[:x] = -temp
+    potential_move
   end
 
   def attracted?(nearest_object)
@@ -24,4 +47,13 @@ class Humanoid
       nearest_object.type == :human
     end
   end
+
+  def store_last_position
+    @last_position = @position
+  end
 end
+
+
+test = Humanoid.new(position: {x: 0, y: 0}, speed: 2, type: :human)
+
+test.test
