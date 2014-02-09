@@ -33,6 +33,8 @@ class Board
       end
       nearest_humanoid = nearest_humanoid humanoid
       destination = humanoid.move_nearest(nearest_humanoid)
+      destination[:y] = destination[:y] % height
+      destination[:x] = destination[:x] % width
       humanoid.bite nearest_humanoid if humanoid.bites? and humanoid.distance_to(nearest_humanoid.position) < 10
       humanoid.position = destination if valid_destination?(destination)
     end
