@@ -23,16 +23,13 @@ class Board
     y = humanoid.position[:y]
     other_humanoids = @humanoids - [ humanoid ]
     other_humanoids.min_by do |dude|
-      (( x - dude.position[x:] ) ** 2 ) + (( y - dude.position[:y] ) ** 2 )
+      (( x - dude.position[:x] ) ** 2 ) + (( y - dude.position[:y] ) ** 2 )
     end
   end
 
   def next_turn(humanoids)
     humanoids.each do |humanoid|
-      # nearest = nearest_humanoid
-      #testing value
-      # nearest = Humanoid.new(type: :zombie, speed: 1, position: {x: 1, y:2})
-      destination = humanoid.move_nearest(nearest)
+      destination = humanoid.move_nearest(nearest_humanoid(humanoid))
       humanoid.position = destination if valid_destination?(destination)
     end
     humanoids
@@ -41,15 +38,20 @@ end
 
 
 
-#next_turn tests
+# next_turn tests
 
 # valid_destination? tests
-# humanoids = [Humanoid.new(speed: 1, type: :human, position:{x: 0, y: 0}),
-#                    Humanoid.new(speed: 1, type: :human, position:{x: 0, y: 1})]
+# humanoids = [ Humanoid.new(speed: 1, type: :human, position:{x: 0, y: 0}),
+#               Humanoid.new(speed: 1, type: :human, position:{x: 0, y: 1}),
+#               Humanoid.new(speed: 1, type: :human, position:{x: 4, y: 1}),
+#               Humanoid.new(speed: 1, type: :human, position:{x: 4, y: 3}),
+#               Humanoid.new(speed: 1, type: :human, position:{x: 2, y: 1}),
+#               Humanoid.new(speed: 1, type: :human, position:{x: 1, y: 2}),
+#               Humanoid.new(speed: 1, type: :human, position:{x: 0, y: 8}),
+#            ]
 # board = Board.new(humanoids,10,10)
 
 # p board.next_turn(humanoids)
 
 # p board.valid_destination?({x:0, y:0})
-
-
+# p board.nearest_humanoid(humanoids[2])
