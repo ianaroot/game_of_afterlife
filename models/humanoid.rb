@@ -1,4 +1,3 @@
-require_relative 'humanoidFactory'
 require_relative 'pathfinder'
 
 class Humanoid
