@@ -11,7 +11,6 @@ class Board
   end
 
   def valid_destination?(target_position)
-    p target_position
     !humanoids.any? do |humanoid|
       humanoid.position == target_position
     end
@@ -35,23 +34,3 @@ class Board
     humanoids
   end
 end
-
-
-
-# next_turn tests
-
-# valid_destination? tests
-# humanoids = [ Humanoid.new(speed: 1, type: :human, position:{x: 0, y: 0}),
-#               Humanoid.new(speed: 1, type: :human, position:{x: 0, y: 1}),
-#               Humanoid.new(speed: 1, type: :human, position:{x: 4, y: 1}),
-#               Humanoid.new(speed: 1, type: :human, position:{x: 4, y: 3}),
-#               Humanoid.new(speed: 1, type: :human, position:{x: 2, y: 1}),
-#               Humanoid.new(speed: 1, type: :human, position:{x: 1, y: 2}),
-#               Humanoid.new(speed: 1, type: :human, position:{x: 0, y: 8}),
-#            ]
-# board = Board.new(humanoids,10,10)
-
-# p board.next_turn(humanoids)
-
-# p board.valid_destination?({x:0, y:0})
-# p board.nearest_humanoid(humanoids[2])
