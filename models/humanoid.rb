@@ -9,11 +9,32 @@ class Humanoid
     @speed = attributes[:speed]
     @type = attributes[:type]
     @time_since_infection = 0
+    @last_position = @position
   end
 
-  def move_nearest nearest_object
-    important_point = nearest_object.position
-    attracted_to?(nearest_object) ? move_towards(important_point, speed) : move_away_from(important_point, speed)
+  def move_nearest(nearest_object)
+    potential_move = attracted_to?(nearest_object) ?
+    move_towards(nearest_object.position, speed) :
+    move_away_from(nearest_object.position, speed)
+     if @last_position == @position
+       store_last_position
+       potential_move
+     elsif last_simmilar_to_potential?( potential_move )
+       store_last_position
+       move_perpendicular_to nearest_object.position, speed
+     else
+       store_last_position
+       potential_move
+     end
+  end
+
+  def last_simmilar_to_potential?( potential_move )
+    ((potential_move[:x] - @last_position[:x]).abs < 5) &&
+    ((potential_move[:y] - @last_position[:y]).abs < 5)
+  end
+
+  def store_last_position
+    @last_position = {x: @position[:x], y: @position[:y]}
   end
 
   def attracted_to? nearest_object 
@@ -44,4 +65,5 @@ class Humanoid
       self.turn_to_zombie
     end
   end
+
 end

@@ -15,6 +15,17 @@ module Pathfinder
     move_towards hostile_location, -speed
   end
 
+  def move_perpendicular_to friendly_location, speed
+    y_difference = friendly_location.fetch(:y) - position.fetch(:y)
+    x_difference = friendly_location.fetch(:x) - position.fetch(:x)
+    length = distance_to friendly_location
+    return friendly_location if speed > 0 && length < speed
+    {
+      x: position.fetch(:x) + y_difference / length * speed ,
+      y: position.fetch(:y) - x_difference / length * speed
+    }
+  end
+
   def distance_to other_location
     y_difference = other_location.fetch(:y) - position.fetch(:y)
     x_difference = other_location.fetch(:x) - position.fetch(:x)
