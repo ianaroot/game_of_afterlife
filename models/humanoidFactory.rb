@@ -1,7 +1,7 @@
 module HumanoidBuilder
   extend self #class << self
   def populate(humans, zombies)
-    create(humans, :human, 2) + create(zombies, :zombie, 1)
+    create(humans, :human, 10) + create(zombies, :zombie, 5)
   end
 
   private
