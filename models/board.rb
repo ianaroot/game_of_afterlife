@@ -28,8 +28,13 @@ class Board
 
   def next_turn
     humanoids.each do |humanoid|
-      destination = humanoid.move_nearest(nearest_humanoid(humanoid))
-      humanoid.position = destination if valid_destination?(destination)
+      nearest_humanoid = nearest_humanoid(humanoid)
+      destination = humanoid.move_nearest(nearest_humanoid)
+      if valid_destination?(destination)
+        humanoid.position = destination
+      elsif humanoid.type == :zombie
+        nearest_humanoid.get_bitten
+      end
     end
     humanoids
   end
