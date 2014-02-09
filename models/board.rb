@@ -14,10 +14,19 @@ class Board
   end
 
   def nearest_humanoid(humanoid)
-    #returns nearest humanoid object
+    x = humanoid.position[:x]
+    y = humanoid.position[:y]
+    other_humanoids = @humanoids - [ humanoid ]
+    other_humanoids.min_by do |dude|
+      (( x - dude.position[x:] ) ** 2 ) + (( y - dude.position[:y] ) ** 2 )
+    end
   end
 
   def next_turn
     #returns array of humanoids
   end
 end
+
+
+
+
