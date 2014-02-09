@@ -1,8 +1,8 @@
 module Pathfinder
   extend self
   def move_towards(current, friendly_location, speed)
-    y_difference = (friendly_location.fetch(:y) - current.fetch(:y)).abs
-    x_difference = (friendly_location.fetch(:x) - current.fetch(:x)).abs
+    y_difference = friendly_location.fetch(:y) - current.fetch(:y)
+    x_difference = friendly_location.fetch(:x) - current.fetch(:x)
     length = Math.sqrt(y_difference**2 + x_difference**2)
     return friendly_location if speed > 0 && length < speed
     target = {

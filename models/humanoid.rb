@@ -26,11 +26,3 @@ class Humanoid
     end
   end
 end
-
-
- pop = HumanoidBuilder.populate(3,5)
-
-p human = pop.first
-p zombie = pop.last
-p human.move_nearest(zombie)
-p zombie.move_nearest(human)
