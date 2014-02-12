@@ -37,7 +37,7 @@ class Humanoid
     @last_position = {x: @position[:x], y: @position[:y]}
   end
 
-  def attracted_to? nearest_object 
+  def attracted_to? nearest_object
     nearest_object.type == :human
   end
 
