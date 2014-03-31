@@ -22,5 +22,13 @@ describe("Humanoid", function(){
     it("should have a timeSinceInfection equal to 0", function(){
       expect(human.timeSinceInfection).toEqual(0)
     });
+
+    describe("#isAttractedTo", function(){
+
+      it("should be attracted to a human", function(){
+        anotherHuman = new Humanoid({'speed': 10, 'humanType': 'human'});
+        expect(human.isAttractedTo(anotherHuman)).toEqual(true)
+      })
+    })
   });
 });
