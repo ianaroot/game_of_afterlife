@@ -57,6 +57,8 @@ function makeAjaxRequest(url) {
       }
     }
   }
+
+
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 }
